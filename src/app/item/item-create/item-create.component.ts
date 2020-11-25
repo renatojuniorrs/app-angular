@@ -1,3 +1,4 @@
+import { Router, RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,6 +11,11 @@ export class ItemCreateComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+
+  addNew (){
+
   }
 
 }

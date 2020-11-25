@@ -5,11 +5,17 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './item-read.component.html',
   styleUrls: ['./item-read.component.css']
 })
+
 export class ItemReadComponent implements OnInit {
 
   constructor() { }
 
   ngOnInit(): void {
   }
+  update(){
 
+  }
+  delete(){
+
+  }
 }

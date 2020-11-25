@@ -1,1 +1,25 @@
-<p>item-read works!</p>
+<div class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+
+                    <a routerLink=""> Voltar</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td> <input class="form-control" type="text" placeholder="Item"></td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="float-right">
+                        <button (click)="delete()" type="button" class="btn btn-danger btn-sm">Excluir</button>
+                        <button (click)="update()" type="button" class="btn btn-primary btn-sm">Editar</button>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

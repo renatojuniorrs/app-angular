@@ -1,6 +1,8 @@
+import { Router, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabelaComponent } from './tabela/tabela.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -8,10 +10,14 @@ import { TabelaComponent } from './tabela/tabela.component';
     TabelaComponent,
   ],
   imports: [
+    CommonModule,
+    RouterModule,
+    Router,
+    BrowserModule,
     CommonModule
   ],
   exports: [
-    TabelaComponent
+    
   ]
 })
 export class TabelaViewModule { }
