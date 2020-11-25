@@ -1,5 +1,5 @@
-import { Router, RouterModule } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-item-create',
@@ -7,15 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-create.component.css']
 })
 export class ItemCreateComponent implements OnInit {
+  
+  formulario : FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder:FormBuilder) { }
 
   ngOnInit(): void {
-    
+    this.formulario = this.formBuilder.group({
+      'item': [null]
+    });
   }
 
   addNew (){
-
+    console.log(this.formulario);
   }
 
 }
