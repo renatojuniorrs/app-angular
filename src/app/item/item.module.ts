@@ -11,7 +11,6 @@ import { ItensComponent } from './itens/itens.component';
   declarations: [ItemCreateComponent, ItemReadComponent, ItensComponent],
   imports: [
     CommonModule,
-    Router,
     RouterModule
   ],
 })
