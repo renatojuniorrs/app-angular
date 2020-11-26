@@ -16,8 +16,8 @@
                 <tr>
                     <td>
                         <span class="float-right">
-                            <button (click)="delete()" type="button" class="btn btn-danger btn-sm">Excluir</button>
-                            <button (click)="update()" [disabled]="!formulario.valid" type="button" class="btn btn-primary btn-sm ml-1">Editar</button>
+                            <button (click)="delete()" [disabled]="!formulario.valid || isSaving" type="button" class="btn btn-danger btn-sm">Excluir</button>
+                            <button (click)="update()" [disabled]="!formulario.valid || isSaving" type="button" class="btn btn-primary btn-sm ml-1">Editar</button>
                         </span>
                     </td>
                 </tr>

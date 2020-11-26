@@ -16,7 +16,7 @@
                 <tr>
                     <td>
                         <span class="float-right">
-                            <button type="submit" [disabled]="isSaving" class="btn btn-primary btn-sm">Cadastrar</button>
+                            <button type="submit" [disabled]="!formulario.valid || isSaving" class="btn btn-primary btn-sm">Cadastrar</button>
                         </span>
                     </td>
                 </tr>

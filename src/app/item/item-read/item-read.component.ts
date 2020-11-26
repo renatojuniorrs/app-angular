@@ -14,6 +14,7 @@ import { ItensService } from '../itens.service';
 export class ItemReadComponent implements OnInit {
   formulario: FormGroup;
   itemId: number;
+  isSaving:boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -58,15 +59,17 @@ export class ItemReadComponent implements OnInit {
   update() {
     if (this.formulario.valid) {
       let item: Item = <Item>this.formulario.value;
-
+      this.isSaving = true;
       this.httpItem.update(
         item,
         (x: any) => {
           console.log(x);
           alert("Salvo com sucesso!");
+          this.isSaving = false;
         },
         (y: any) => {
           console.log(y);
+          this.isSaving = false;
         }
       );
     } else {
@@ -76,16 +79,18 @@ export class ItemReadComponent implements OnInit {
 
   delete() {
     let item: Item = <Item>this.formulario.value;
-
+    this.isSaving = true;
     this.httpItem.delete(
       item,
       (x: any) => {
         console.log(x);
         alert("Excluído com sucesso!");
+        this.isSaving = false;
         this.router.navigate(['']);
       },
       (y: any) => {
         console.log(y);
+        this.isSaving = false;
       }
     );
   }

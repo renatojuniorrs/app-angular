@@ -42,9 +42,11 @@ export class ItemCreateComponent implements OnInit {
           (x:any)=>{
             alert("Cadastrado com sucesso!");
             this.router.navigate(['']);
+            this.isSaving = false;
           },
           (y:any)=>{
             console.log(y);
+            this.isSaving = false;
           }
           );
 
