@@ -9,10 +9,11 @@ const routes: Routes = [
   {path: '', component: TabelaComponent},
   {path: 'item/create', component: ItemCreateComponent},
   {path: 'item/read/:id', component: ItemReadComponent},
+  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  
+
 })
 export class AppRoutingModule { }
