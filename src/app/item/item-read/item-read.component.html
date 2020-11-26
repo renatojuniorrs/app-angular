@@ -1,4 +1,4 @@
-<form [formGroup]="formulario" (ngSubmit)="addNew()">
+<form [formGroup]="formulario">
     <div class="table-responsive">
         <table class="table">
             <thead class="thead-dark">
@@ -11,13 +11,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td> <input class="form-control" formControlName="item" type="text" placeholder="Item"></td>
+                    <td> <input class="form-control" formControlName="name" type="text" placeholder="Item"></td>
                 </tr>
                 <tr>
                     <td>
                         <span class="float-right">
                             <button (click)="delete()" type="button" class="btn btn-danger btn-sm">Excluir</button>
-                            <button (click)="update()" type="button" class="btn btn-primary btn-sm ml-1">Editar</button>
+                            <button (click)="update()" [disabled]="!formulario.valid" type="button" class="btn btn-primary btn-sm ml-1">Editar</button>
                         </span>
                     </td>
                 </tr>

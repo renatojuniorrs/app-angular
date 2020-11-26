@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from 'src/app/models/item';
+import { ItensService } from '../itens.service';
 
 @Component({
   selector: 'app-item-read',
@@ -11,55 +13,80 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class ItemReadComponent implements OnInit {
   formulario: FormGroup;
-  itemId:number; // ID tem que vir number
+  itemId: number;
 
   constructor(
-      private formBuilder:FormBuilder,
-      private http: HttpClient,
-      private router: Router,
-      private route: ActivatedRoute
-  ) { }
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute,
+    private httpItem: ItensService
+  ) {
+    this.itemId = this.route.snapshot.params['id'];
+    this.formulario = this.formBuilder.group({
+      'name': [null, [Validators.required, Validators.minLength(1), Validators.maxLength(60)]],
+      'id': [this.itemId, [Validators.pattern(/[0-9]+/)]] // Forma melhor de validar?
+    });
+
+    if (!this.formulario.controls.id.valid) {
+      alert("ID inválido");
+      this.router.navigate(['']);
+    }
+
+    let item: Item = <Item>this.formulario.value;
+    this.httpItem.select(
+      item,
+      (x: Item[]) => {
+        item = x[0];
+        this.formulario.patchValue({
+          'name': item.name
+        });
+      },
+      (y: any) => {
+        console.log(y);
+      }
+    );
+
+    console.log(this.formulario);
+  }
 
   ngOnInit(): void {
-      this.itemId = this.route.snapshot.params['id'];
 
-      this.formulario = this.formBuilder.group({
-        'item': [null, [Validators.required, Validators.minLength(1), Validators.maxLength(60)]],
-        'id': [this.itemId, [Validators.pattern(/[0-9]+/)]] // Forma melhor de validar?
-      });
 
-      if(!this.formulario.controls.id.valid){
-          alert("ID inválido");
-          this.router.navigate(['']);
-      }
-      console.log(this.formulario);
   }
 
-  update(){
-      if(this.formulario.valid){
+  update() {
+    if (this.formulario.valid) {
+      let item: Item = <Item>this.formulario.value;
 
-          // service
-          this.http.post('http://api.levande.com.br/static/test.php?sleep=1&update', JSON.stringify(this.formulario.value))
-          .subscribe(dados => {
-              console.log(dados);
-              if(dados.StatusCode == 200){ // Erro ao compilar, mas funciona! :/
-                  alert("Salvo com sucesso");
-              }
-          });
-      }else{
-          alert("Por favor usuário, digite corretamente!");
-      }
+      this.httpItem.update(
+        item,
+        (x: any) => {
+          console.log(x);
+          alert("Salvo com sucesso!");
+        },
+        (y: any) => {
+          console.log(y);
+        }
+      );
+    } else {
+      alert("Por favor usuário, digite corretamente!");
+    }
   }
-  delete(){
-      this.http.post('http://api.levande.com.br/static/test.php?sleep=1&delete', JSON.stringify({
-          "id": this.formulario.controls.id.value
-      }))
-      .subscribe(dados => {
-          console.log(dados);
-          if(dados.StatusCode == 200){ // Erro ao compilar, mas funciona! :/
-              alert("Excluido com sucesso id = "+this.formulario.controls.id.value);
-              this.router.navigate(['']);
-          }
-      });
+
+  delete() {
+    let item: Item = <Item>this.formulario.value;
+
+    this.httpItem.delete(
+      item,
+      (x: any) => {
+        console.log(x);
+        alert("Excluído com sucesso!");
+        this.router.navigate(['']);
+      },
+      (y: any) => {
+        console.log(y);
+      }
+    );
   }
 }
